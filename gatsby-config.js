@@ -12,5 +12,6 @@ module.exports = {
         name: 'posts',
       },
     },
-    `gatsby-transformer-remark`],
+    `gatsby-transformer-remark`,
+    `gatsby-plugin-sass`],
 }
