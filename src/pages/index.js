@@ -1,12 +1,21 @@
 import React from 'react'
 import Link from 'gatsby-link'
+import Social from '../components/social'
 
 const IndexPage = () => (
-  <div>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <Link to="/page-2/">Go to page 2</Link>
+  <div className="container">
+    <div className="row">
+      <div className="col-12 center">
+        <div className="contents-home">
+          <h1>Shamin Meerankutty</h1>
+          <p>Full Stack Developer</p>
+        </div>
+      </div>
+    </div>
+    <Social />
+    <div className="center">
+      <Link to="/contact">Contact</Link>
+    </div>
   </div>
 )
 
