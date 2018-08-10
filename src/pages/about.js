@@ -5,9 +5,7 @@ const About = () => (
   <div id="about" className="container">
     <div className="contents">
       <div className="row">
-        <div className="col-md-4">
-        </div>
-        <div className="col-md-7">
+        <div className="col-12">
           <h2 className="heading">Something About Me.</h2>
           <p>I am a full stack developer from Kerala, India, currently working as a developer in
               Fullcontact. I have experience in both Web and Mobile Technologies.
