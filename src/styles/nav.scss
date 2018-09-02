@@ -1,0 +1,47 @@
+.navigation {
+  .nav-button-container {
+    position: absolute;
+    top: 50px;
+    left: 40px;
+    .nav-button {
+      position: relative;
+      background: $color-primary;
+      width: 50px;
+      height: 5px;
+      &::after,
+      &::before {
+        position: absolute;
+        content: " ";
+        background: $color-primary;
+        height: 5px;
+      }
+      &::after{
+        top: -15px;
+        width: 40px;
+      }
+      &::before{
+        top: 15px;
+        width: 30px;
+      }
+    }
+  }
+  .nav-bar{
+    z-index: 99;
+    background: $color-white;
+    transition: 1s ease;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 30%;
+    height: 100%;
+    .nav-items{
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%,-50%)
+    }
+    &:hover{
+      left: 0;
+    }
+  }
+}
