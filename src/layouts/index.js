@@ -18,7 +18,7 @@ const Layout = ({ children, data }) => (
       <script defer src="https://use.fontawesome.com/releases/v5.0.4/js/all.js"></script>
     </Helmet>
     {/* <Header siteTitle={data.site.siteMetadata.title} /> */}
-    <Nav />
+    {/* <Nav /> */}
     <div>
       {children()}
     </div>
