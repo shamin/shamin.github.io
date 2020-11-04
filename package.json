@@ -12,6 +12,7 @@
     "clean": "gatsby clean"
   },
   "dependencies": {
+    "@emotion/core": "^10.1.1",
     "gatsby": "^2.25.1",
     "prism-react-renderer": "^1.1.1",
     "react": "^16.12.0",
