@@ -1,17 +1,37 @@
 module.exports = {
   siteMetadata: {
-    title: 'Shamin.me',
+    title: "Hi",
+    author: "@shamin",
   },
-  pathPrefix: `/shamin.me`,
-  plugins: ['gatsby-plugin-react-helmet',
-    `gatsby-plugin-catch-links`,
+  plugins: [
+    "gatsby-plugin-react-helmet",
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: "gatsby-source-filesystem",
       options: {
-        path: `${__dirname}/src/posts`,
-        name: 'posts',
+        name: "posts",
+        path: `${__dirname}/src/pages/blog/posts/`,
       },
     },
-    `gatsby-transformer-remark`,
-    `gatsby-plugin-sass`],
+    {
+      resolve: "gatsby-plugin-mdx",
+      options: {
+        defaultLayouts: {
+          default: require.resolve(
+            "./src/components/markdown/post.tsx"
+          ),
+        },
+      },
+    },
+    {
+      resolve: "gatsby-plugin-manifest",
+      options: {
+        name: "shamin",
+        start_url: "/",
+        background_color: "#FFFFFF",
+        theme_color: "#161D2E",
+        display: "shamin",
+        icon: "src/images/icon.png",
+      },
+    },
+  ],
 }
