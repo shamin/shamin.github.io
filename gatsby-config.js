@@ -1,6 +1,7 @@
 module.exports = {
   siteMetadata: {
-    title: "Hi",
+    title: "shamin.github.io",
+    description: "Shamin's blog",
     author: "@shamin",
   },
   plugins: [
@@ -16,9 +17,7 @@ module.exports = {
       resolve: "gatsby-plugin-mdx",
       options: {
         defaultLayouts: {
-          default: require.resolve(
-            "./src/components/markdown/post.tsx"
-          ),
+          default: require.resolve("./src/components/markdown/post.tsx"),
         },
       },
     },

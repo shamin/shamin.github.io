@@ -3,13 +3,13 @@ import { css, jsx } from "@emotion/core"
 import { Link } from "gatsby"
 import Layout from "../components/layout"
 
-const homeStyles = css`
+const errorPageStyles = css`
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
   height: 100vh;
-  .home__nav {
+  flex-direction: column;
+  .error-page__nav {
     display: grid;
     column-gap: 20px;
     grid-template-columns: auto auto;
@@ -19,14 +19,14 @@ const homeStyles = css`
   }
 `
 
-export default function Home() {
+export default function ErrorPage() {
   return (
-    <Layout title="Home">
-      <div css={homeStyles}>
-        <h1>Hi 👋, I'm Shamin</h1>
-        <div className="home__nav">
+    <Layout title="404">
+      <div css={errorPageStyles}>
+        <h1>🤔 404</h1>
+        <div className="error-page__nav">
+          <Link to="/">Home</Link>
           <Link to="/blog">Blog</Link>
-          <a href="https://github.com/shamin">Github</a>
         </div>
       </div>
     </Layout>
