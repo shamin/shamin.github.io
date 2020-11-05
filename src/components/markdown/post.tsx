@@ -30,6 +30,9 @@ const postStyles = css`
   }
   .syntax-highlight {
     padding: 20px;
+    font-family: SF Mono, sans-serif;
+    font-size: 16px;
+    line-height: 1.6em;
   }
   code {
     font-family: inherit;
