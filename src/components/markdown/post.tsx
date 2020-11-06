@@ -45,6 +45,11 @@ const postStyles = css`
     text-decoration: none;
     color: #0000ee;
   }
+  h1, h2, h3, h4 {
+    a {
+      color: #000;
+    }
+  }
 `
 
 const PostPage: React.FC<PostPageProps> = (props: PostPageProps) => {

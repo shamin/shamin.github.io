@@ -5,7 +5,7 @@ date: "04 November 2020"
 description: "Details on what tools I used for creating this blog."
 ---
 
-I wanted to create a blog for a long time and I also wanted to write it from scratch. So I did a quick research on the stacks I can use.
+I wanted to create a blog for a long time and I also wanted to start it from scratch. So I did a quick research on the stacks I can use.
 I was familiar with [Gatsby](https://gatsby.com), it is an amazing tool which can be used to generate static html files. The best thing about
 the gatsby is you can write the code in React and it will create static html files for you. 
 
@@ -13,30 +13,30 @@ The main thing to care about writing a blog is to SEO, nobody
 want's to write a blog that is hidden from outside world. Writing it in React directly with CRA or a custom webpack configuration doesn't directly supports 
 server side rendering. So you will need to have additional tools like Next.js for doing this.
 
-Another good thing about having static html files is you can deploy it easlily with some free services like Netlify, Surge etc. or you can use github pages. 
+Another good thing about having static html files is you can deploy it easlily with some services like [Netlify](netlify.com), [Surge](https://surge.sh/) etc. or you can use github pages. 
 There are a lot of good articles on how to setup a continous deployment (CD) to these systems using github actions and travis.
 
 Also gatsby have a lot of cool plugins which can help you create awesome blogs. I can list some of them which I used.
 
 ## Gatsby plugins I used.
 
-### gatsby-plugin-react-helmet
+### [gatsby-plugin-react-helmet](https://www.gatsbyjs.com/plugins/gatsby-plugin-react-helmet/)
 
 This plugin helps you make your SEO better by updating the title and description dynamically and also setting the meta tags.
-You can see my [seo.tsx]() file to know more about how I set it up. This plugin uses `react-helmet` underneath.
+You can see my [seo.tsx](https://github.com/shamin/shamin.github.io/blob/master/src/components/seo.tsx) file to know more about how I set it up. This plugin uses `react-helmet` underneath.
 
-### gatsby-source-filesystem
+### [gatsby-source-filesystem](https://www.gatsbyjs.com/plugins/gatsby-source-filesystem/)
 
 Gatsby's filesystem plugin is one of the commonly used plugin. Usually it is used if one of the plugins or your custom plugin need to read some files in source.
 Like, for example In our case we want our `gatsby-plugin-mdx` to read all the `mdx` files, so I have set filesystem to read the `posts` folder which contain all
 my mdx files.
 
-### gatsby-plugin-mdx
+### [gatsby-plugin-mdx](https://www.gatsbyjs.com/plugins/gatsby-plugin-mdx/)
 
 This is an amazing gatsby plugin which lets you write pages in `mdx` format. `mdx` is a superset of markdown which supports `jsx`. That means you can import and 
 use react components along with markdown. This plugin takes care of everything and render the `mdx` to a page.
 
-### gatsby-plugin-manifest
+### [gatsby-plugin-manifest](https://www.gatsbyjs.com/plugins/gatsby-plugin-manifest/)
 
 This plugin is used to create a manifest file for your web application. This is mostly useful for creating PWA apps, but I used it because I want to generate the favicons
 and icons.
@@ -45,16 +45,16 @@ These were the gatsby plugins I used. Apart from this I have used 2 other thirdp
 
 ## Other libraries I used.
 
-### Emotion
+### [Emotion](https://emotion.sh/)
 
 I am big fan of css and I believe that a frontend developer show definetly have a solid css understanding. Emotion is css-in-js library which helps you write
 scoped css. One of the major benefits of using a scoped css is if you are ever going to remove a component file it will thereby remove the css also. 
 So you don't have to go into other files and remove it. It also have great benefits if you are writing shared components.
 
-### Prism js
+### [Prism js](https://prismjs.com/)
 
-I am actually using a React version of this library called `prism-react-renderer`. It helps in syntax highlighting the code blocks. So I have created a mapping 
-in my [mdxStyler.tsx]() file which maps my code component to a syntax hightlight component which uses `prism-react-renderer`. Prism js also comes with some awesome 
+I am actually using a React version of this library called [prism-react-renderer](https://github.com/FormidableLabs/prism-react-renderer). It helps in syntax highlighting the code blocks. So I have created a mapping 
+in my [mdxStyler.tsx](https://github.com/shamin/shamin.github.io/blob/master/src/components/markdown/mdxStyler.tsx) file which maps my code component to a syntax hightlight component which uses prism-react-renderer. Prism js also comes with some awesome 
 themes.
 
 I will be constantly improving this blog and I will try to update this post about the changes I make in the future. Thanks for reading.
