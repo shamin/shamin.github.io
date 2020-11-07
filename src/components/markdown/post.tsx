@@ -30,7 +30,7 @@ const postStyles = css`
   }
   .syntax-highlight {
     padding: 20px;
-    font-family: SF Mono, sans-serif;
+    font-family: Consolas,Menlo,Monaco,source-code-pro,Courier New,monospace;
     font-size: 16px;
     line-height: 1.6em;
   }

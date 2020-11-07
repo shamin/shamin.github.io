@@ -1,0 +1,320 @@
+---
+path: "/blog/posts/11-2020/react-dynamic-folder-tree"
+title: "Create a dynamic folder tree in React"
+date: "10 November 2020"
+description: "Creating a folder tree in React which loads data from an api."
+---
+
+import { AccordionExample } from "../../../../components/posts/reactDynamicFolderTree"
+
+Recently I got a requirement for creating a folder tree in clojurescript which is dynamic that means we have to load the folder contents
+dynamically from an api when it is opened. I am going to explain how I did an initial version of it in javascript with React.
+
+I started with a sample data in the structure I get. Also wrote a wrapper function which returns the folder contents when a directory is passed.
+It look like this.
+
+```javascript
+const folder = {
+  "/": [
+    { name: "documents", dir: true },
+    { name: "downloads", dir: true },
+    { name: "my.pptx", dir: false },
+  ],
+  documents: [
+    { name: "doc1.docx", dir: false },
+    { name: "pres.pptx", dir: false },
+  ],
+  downloads: [
+    { name: "music", dir: true },
+    { name: "file1.csv", dir: false },
+    { name: "file2.txt", dir: false },
+  ],
+  "downloads/music": [
+    { name: "doc1.docx", dir: false },
+    { name: "pres.pptx", dir: false },
+  ],
+}
+
+export default function getFolderContents(directory) {
+  return folder[directory].reduce((acc, cur) => {
+    acc[cur.name] = cur
+    return acc
+  }, {})
+}
+```
+
+My `getFiles` function looks wierd this is because I wanted it in a tree like structure that way I can update it easily with lodash `update` function.
+
+```javascript
+/* This is what getFiles returns when '/' is passed as directory */
+
+{
+  "documents":  { name: "documents", dir: true },
+  "downloads":   { name: "downloads", dir: true },
+  "my.pptx"      :   { name: "my.pptx", dir: false },
+}
+```
+
+Another reason why I went for this format is it is easier for me when I convert this to clojurescript.
+
+Now I searched for some of the existing implementations of this feature and I could find a [similar one](https://codyhouse.co/demo/multi-level-accordion-menu/index.html) that suits my need. It was a css and vanila js
+implementation. I decided to create a React component similar to it.
+
+I had experience building accordion components. This new component works similar to accordion except that in this case there will be accordions inside accordion.
+So, I started with an accordion component similar to what I did earlier. Also I have created accordion item component for files and folders.
+
+This is how my `AccordionFileItem` component looks like. It is just a list item with an icon and a file name.
+
+```jsx
+import React from "react"
+import { Description } from "@material-ui/icons"
+
+function AccordionFileItem(props) {
+  return (
+    <li
+      className="accordion__item"
+      onClick={e => {
+        e.stopPropagation()
+        props.onFileItemClick()
+      }}
+    >
+      <Description style={{ color: "#fff" }} />
+      {props.file.name}
+    </li>
+  )
+}
+```
+
+`AccordionFolderItem` was not straight forward because it will be having sub folders and files. I started with a folder item similar to
+file item.
+
+```jsx
+import React from "react"
+import { Description } from "@material-ui/icons"
+
+function AccordionFolderItem(props) {
+  return (
+    <li
+      className="accordion__item accordion__item--folder"
+      onClick={e => {
+        e.stopPropagation()
+        props.onFolderItemClick([props.folder.name])
+      }}
+    >
+      <Folder style={{ color: "#fff" }} />
+      {props.folder.name}
+    </li>
+  )
+}
+```
+
+Here, we can see the when someone clicks on the component an `onFolderItemClick` function is fired which is having folder name as an array.
+We will find out soon why we are passing it as an array.
+
+Now it is the time for the `AccodionComponent`. It looks like this for now.
+
+```jsx
+import React from "react"
+
+function Accordion(props) {
+  return (
+    <ul className="accordion">
+      {Object.values(props.files).map(file => {
+        if (file.dir) {
+          return (
+            <AccordionFolderItem
+              key={file.name}
+              folder={file}
+              onFolderItemClick={folderPath => {
+                props.onFolderItemClick(folderPath)
+              }}
+            />
+          )
+        }
+        return (
+          <AccordionFileItem
+            key={file.name}
+            file={file}
+            onFileItemClick={() => {
+              console.log(file.name)
+            }}
+          />
+        )
+      })}
+    </ul>
+  )
+}
+```
+
+This is how we are going to use it now.
+
+```jsx
+import { update, cloneDeep } from "lodash"
+
+function loadContentForFolder(files, path) {
+  const subFiles = getFolderContents(path.join("/"));
+  const newFiles = cloneDeep(files)
+
+  update(newFiles, path, function (n) {
+    return {
+      ...n,
+      files: subFiles,
+    }
+  })
+
+  return newFiles
+}
+
+function App() {
+  const [files, setFiles] = useState(getFolderContents("/"))
+  function loadContents(path) {
+    const newFiles = loadContentForFolder(files, path)
+    setFiles(newFiles)
+  }
+
+  return (
+    <Accordion files={files} onFolderItemClick={path => loadContents(path)} />
+  )
+}
+```
+
+The `loadContentForFolder` looks complicated. What it is doing is simple whenever you are loading contents of a folder it appends it to a files key in the folder object.
+
+```javascript
+// This is how our files will look like intially
+{
+  "documents":  { name: "documents", dir: true },
+  "downloads":   { name: "downloads", dir: true },
+  "my.pptx"      :   { name: "my.pptx", dir: false },
+}
+
+loadFiles(['documents'])
+
+// This is how files is going to look like after we load contents of documents folders.
+
+{
+  "documents":  {
+    name: "documents",
+    dir: true,
+    files: {
+      "doc1.docx": { name: "doc1.docx", dir: false },
+      "pres.pptx": { name: "pres.pptx", dir: false },
+    }
+  },
+  "downloads":   { name: "downloads", dir: true },
+  "my.pptx"      :   { name: "my.pptx", dir: false },
+}
+```
+
+The problem here was this only worked for top level folders, ie, Whenever we try to load files of an inner folder like for eg. `downloads/music` it was
+added to `{"downloads": {"music": "..." }}` but what we this data here `{"downloads": {"files": {"music": "..." }}}`. The easiest way is to update the 
+write path from `["downloads", "documents"]` to `["downloads", "files", "documents"]`.
+
+So our new `loadContentForFolder` function will look like this.
+
+```javascript
+function loadContentForFolder(files, path) {
+  const subFiles = getFolderContents(path.join("/"));
+  const newFiles = cloneDeep(files);
+
+  const writePath = flatMap(path, (value, index, array) =>
+    array.length - 1 !== index ? [value, "files"] : value
+  );
+
+  update(newFiles, writePath, function (n) {
+    return {
+      ...n,
+      files: subFiles,
+    };
+  });
+
+  return newFiles;
+}
+```
+
+Bit hacky, but works. Now our `loadContentForFolder` supports loading inner level folder contents. 
+
+Now we have to update the `AccordionFolderItem` component to show its sub files.
+
+```jsx
+function AccordionFolderItem(props) {
+  return (
+    <li
+      className={`accordion__item accordion__item--folder ${
+        props.isOpen ? "accordion__item--open" : ""
+      }`}
+      onClick={(e) => {
+        e.stopPropagation();
+        props.onFolderItemClick([props.folder.name]);
+      }}
+    >
+      <Folder style={{ color: "#fff" }} />
+      {props.folder.name}
+      {props.folder.files && (
+        <Accordion
+          files={props.folder.files}
+          onFolderItemClick={(path) =>
+            props.onFolderItemClick([props.folder.name, ...path])
+          }
+        />
+      )}
+    </li>
+  );
+}
+```
+
+Now we have a recursive `Accordion` component. We have to make some adjustments in `Accordion` component to handle folder open and close.
+```jsx
+function isFolderOpen(openFolders, folderName) {
+  return openFolders.find((f) => f === folderName);
+}
+
+function Accordion(props) {
+  const [openFolders, setOpenFolders] = useState([]);
+  function openCloseFolder(folder) {
+    const isOpen = isFolderOpen(openFolders, folder);
+    if (isOpen) {
+      setOpenFolders(openFolders.filter((f) => f !== folder));
+    } else {
+      setOpenFolders([...openFolders, folder]);
+    }
+  }
+  return (
+    <ul className="accordion">
+      {Object.values(props.files).map((file) => {
+        if (file.dir) {
+          return (
+            <AccordionFolderItem
+              key={file.name}
+              file={file}
+              onFolderItemClick={(fileData) => {
+                const isOpen = isFolderOpen(openFolders, file.name);
+                if (!isOpen || fileData.length !== 1) {
+                  props.onFolderItemClick(fileData);
+                }
+                if (fileData.length === 1) {
+                  openCloseFolder(file.name);
+                }
+              }}
+              isOpen={isFolderOpen(openFolders, file.name)}
+            />
+          );
+        }
+        return (
+          <AccordionFileItem
+            key={file.name}
+            file={file}
+            onFileItemClick={() => {
+              console.log(file.name);
+            }}
+          />
+        );
+      })}
+    </ul>
+  );
+```
+
+<AccordionExample />
+
+Now everything works perfect and we have a dynamic folder tree. This is just an intial version and We need make some adjustments to make it production ready.
+Thanks for reading.

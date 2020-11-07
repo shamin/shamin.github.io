@@ -18,7 +18,7 @@ const blogListStyles = css`
 export default function Blog() {
   const data = useStaticQuery(graphql`
     query {
-      allMdx {
+      allMdx(sort: {fields: frontmatter___date, order: DESC}) {
         edges {
           node {
             id
