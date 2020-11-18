@@ -1,0 +1,129 @@
+---
+path: "/blog/posts/11-2020/react-custom-dnd"
+title: "Creating a custom drag and drop in react?"
+date: "13 November 2020"
+description: "How to write a drag and drop in react from scratch."
+---
+
+import { DraggableV1 } from "../../../../components/posts/reactDnd"
+
+I wanted to write have a drag and drop functionality in my app. I needed it in my react app. At first I thought of going with the HTML5 drag and drop.
+It ended up a bad idea. I spent hours trying to fix the problems it created. Then I found this [article](https://www.quirksmode.org/blog/archives/2009/09/the_html5_drag.html)
+the guy has pointed out all the problems I went through. I then found an amazing dnd library for [react-dnd](https://github.com/react-dnd/react-dnd).
+It is great for simple needs but for my need it didn't fit. Somethings I found hard using `react-dnd` where hard to customize the drag image and adding a custom cursor.
+I wanted these features very much so I planned to use the mouse events and create a custom dnd from scratch.
+
+There are a lot of posts on how to implement a drag and drop in React but most of them are pretty basic. This post mainly talk about how I implemented my own drag & drop
+and the problems I faced and how I fixed them.
+
+## Create a draggable component
+
+My first task was to create a draggable component. I did some research and found another react dnd libaray [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd)
+but this one is focused on creating drag and drop lists. [Alex Reardon](https://github.com/alexreardon) had done an amazing job creating this library, it is one of the best react
+libraries I have ever seen. He have a lot of videos and blog posts explaining how he created the library. I was able to figure out a spec on how I wanted the component.
+
+```jsx
+<Draggable id="drag-me">
+  <p>Drag Me</p>
+</Draggable>
+```
+
+Here, we have a draggable component that can be wrapped around a react element and make it draggable.
+
+I started by adding a mouse down listener on a wrapper inside my draggable component. And created a state that controls the position of the element and another
+`watchMouse` state which to start listening for `mousemove` events.
+
+```jsx
+import React, { useEffect, useState } from "react";
+
+export function Draggable() {
+  const [drag, setDrag] = useState<{ x?: number; y?: number }>({});
+  const [watchMouse, setWatchMouse] = useState({});
+
+  const onMouseDown = () => {
+    setMoving(true);
+  };
+
+  return (
+    <div className="draggable">
+      <div
+        className="draggable__item"
+        style={{
+          position: "fixed",
+          top: drag.y,
+          left: drag.x,
+        }}
+        onMouseDown={onMouseDown}
+      >
+        Drag
+      </div>
+    </div>
+  );
+}
+```
+
+I have added a `useEffect` hook which checks the value of `watchMouse` state and adds and removes `mousemove` listeners based on the value.
+I have also added another state `clickPos` to track the position of the click in that element. This value is used later so that the drag is
+started from the position user clicked. Also added a `mouseup` listener which sets the `watchMouse` to false and thereby removing the `mousemove`
+listener.
+
+```jsx
+import React, { useEffect, useState } from "react";
+
+export function Draggable(props: { children: React.ReactChild }) {
+  const [drag, setDrag] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+  const [clickPos, setClickPos] = useState<{ x: number; y: number }>({
+    x: 0,
+    y: 0,
+  });
+  const [watchMouse, setWatchMouse] = useState(false);
+
+  const onMouseDown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    const element: HTMLDivElement = e.target as HTMLDivElement;
+    setClickPos({
+      x: e.clientX - element.getBoundingClientRect().left,
+      y: e.clientY - element.getBoundingClientRect().top,
+    });
+    setWatchMouse(true);
+  };
+
+  const onMouseUp = () => {
+    setWatchMouse(false);
+  };
+
+  useEffect(() => {
+    const onMouseMove = (e: MouseEvent) => {
+      setDrag({ x: e.clientX - clickPos.x, y: e.clientY - clickPos.y });
+    };
+
+    if (watchMouse) {
+      window.addEventListener("mousemove", onMouseMove);
+    }
+    return () => {
+      window.removeEventListener("mousemove", onMouseMove);
+    };
+  }, [watchMouse, clickPos]);
+
+  return (
+    <div className="draggable">
+      <div
+        className="draggable__item"
+        style={{ position: "fixed", top: drag.y, left: drag.x }}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+      >
+        {props.children}
+      </div>
+    </div>
+  );
+}
+```
+
+This is how it looks.
+
+<div style={{ position: "relative" }}>
+  <DraggableV1 id="drag-me">
+    <p>Drag Me</p>
+  </DraggableV1>
+</div>
+
