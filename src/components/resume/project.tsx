@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core"
+import { Project } from "./types"
 
 const resumeProjectStyles = css`
   margin-top: 15px;
@@ -25,6 +26,8 @@ const resumeProjectStyles = css`
 
 export default function ResumeProjectItem({
   project: { name, type, link, description, stacks },
+}: {
+  project: Project
 }) {
   return (
     <li css={resumeProjectStyles}>

@@ -1,4 +1,18 @@
-export const experiences = [
+import {
+  Education,
+  Experience,
+  HeaderItem,
+  OpenSource,
+  Project,
+  Skill,
+} from "./types"
+import { HiOutlineMail } from "react-icons/hi"
+import { GrLocation } from "react-icons/gr"
+import { AiOutlineLinkedin } from "react-icons/ai"
+import { VscGithub } from "react-icons/vsc"
+import { CgWebsite } from "react-icons/cg"
+
+export const experiences: Experience[] = [
   {
     role: "Full Stack Engineer",
     company: "Fullcontact",
@@ -58,7 +72,7 @@ export const experiences = [
   },
 ]
 
-export const skills = [
+export const skills: Skill[] = [
   {
     type: "Programming Languages",
     list: ["Javascript", "Python", "Clojure"],
@@ -103,7 +117,7 @@ export const skills = [
   },
 ]
 
-export const educations = [
+export const educations: Education[] = [
   {
     course: "Bachelor of Technology",
     major: "Mechanical Engineering",
@@ -114,7 +128,7 @@ export const educations = [
   },
 ]
 
-export const openSource = {
+export const openSource: OpenSource = {
   projects: [
     {
       name: "Greenboard",
@@ -136,13 +150,21 @@ export const openSource = {
   ],
 }
 
-export const sideProjects = [
+export const sideProjects: Project[] = [
   {
     name: "Postbot",
     type: "Shopify Application",
     description:
       "Built a shopify application that shows liveorder pop-ups on shopify stores.",
-    stacks: ["React", "React hooks", "Emotion", "Node JS", "AWS", "Mongo DB", "GraphQl"],
+    stacks: [
+      "React",
+      "React hooks",
+      "Emotion",
+      "Node JS",
+      "AWS",
+      "Mongo DB",
+      "GraphQl",
+    ],
     link: "https://postbot.tech",
   },
   {
@@ -151,5 +173,39 @@ export const sideProjects = [
       "Created a webpack boilerplate that can be used to start a small website. This boilerplate also adds sass, es6 functionality to your environment.",
     stacks: ["Webpack", "sass"],
     link: "https://github.com/shamin/webpack-sass-bootstrap-boilerplate",
+  },
+]
+
+export const resumeHeaderItems: HeaderItem[] = [
+  {
+    type: "email",
+    icon: HiOutlineMail,
+    text: "shamin616@gmail.com",
+    link: "mailto:shamin616@gmail.com",
+  },
+  {
+    type: "location",
+    icon: GrLocation,
+    text: "Kochi, India",
+    link:
+      "https://www.google.com/maps/place/Kochi,+Kerala/@9.9826809,76.1608497,11z/data=!3m1!4b1!4m5!3m4!1s0x3b080d514abec6bf:0xbd582caa5844192!8m2!3d9.9312328!4d76.2673041",
+  },
+  {
+    type: "linkedin",
+    icon: AiOutlineLinkedin,
+    text: "shamin-meerankutty",
+    link: "https://linkedin.com/in/shamin-meerankutty/",
+  },
+  {
+    type: "github",
+    icon: VscGithub,
+    text: "shamin",
+    link: "https://github.com/shamin",
+  },
+  {
+    type: "website",
+    icon: CgWebsite,
+    text: "shamin.github.io",
+    link: "https://shamin.github.io",
   },
 ]

@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core"
+import { Project } from "./types"
 
 const resumeOpenSourceStyles = css`
   .opensource__heading {
@@ -21,6 +22,8 @@ const resumeOpenSourceStyles = css`
 
 export default function ResumeOpenSourceItem({
   data: { name, type = "", link, description, stacks },
+}: {
+  data: Project
 }) {
   return (
     <li css={resumeOpenSourceStyles}>

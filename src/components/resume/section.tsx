@@ -13,7 +13,13 @@ const resumeSectionStyles = css`
   }
 `
 
-export default function ResumeSection({ title, children }) {
+export default function ResumeSection({
+  title,
+  children,
+}: {
+  title: string
+  children: React.ReactChild
+}) {
   return (
     <section css={resumeSectionStyles}>
       <h2 className="section__heading">{title}</h2>

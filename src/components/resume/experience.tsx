@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/core"
 import { MdDateRange } from "react-icons/md"
 import { GrLocation } from "react-icons/gr"
+import { Experience } from "./types"
 
 const resumeExperienceStyles = css`
   .experience__role {
@@ -50,6 +51,8 @@ const resumeExperienceStyles = css`
 
 export default function ResumeExperienceItem({
   experience: { role, company, companyLink, date, location, projects },
+}: {
+  experience: Experience
 }) {
   return (
     <li css={resumeExperienceStyles}>

@@ -9,6 +9,7 @@ import {
   skills,
   openSource,
   sideProjects,
+  resumeHeaderItems,
 } from "../components/resume/content"
 import ResumeEducationItem from "../components/resume/education"
 import ResumeExperienceItem from "../components/resume/experience"
@@ -85,7 +86,7 @@ export default function Resume() {
         }
       />
       <div css={resumeStyles}>
-        <ResumeHeader />
+        <ResumeHeader headerItems={resumeHeaderItems} />
         <div className="two-col">
           <div className="content__left">
             <ResumeSection title="Experience">

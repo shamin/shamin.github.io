@@ -2,6 +2,7 @@
 import { css, jsx } from "@emotion/core"
 import { MdDateRange } from "react-icons/md"
 import { GrLocation } from "react-icons/gr"
+import { Education } from "./types"
 
 const resumeEducationStyles = css`
   .education__course {
@@ -23,6 +24,8 @@ const resumeEducationStyles = css`
 
 export default function ResumeEducationItem({
   education: { course, major, college, timeline, location, collegeLink },
+}: {
+  education: Education
 }) {
   return (
     <li css={resumeEducationStyles}>
@@ -31,7 +34,12 @@ export default function ResumeEducationItem({
           {course} - {major}
         </strong>
       </p>
-      <a rel="noreferrer" target="_blank" className="education__college" href={collegeLink}>
+      <a
+        rel="noreferrer"
+        target="_blank"
+        className="education__college"
+        href={collegeLink}
+      >
         {college}
       </a>
       <div className="education__data">
