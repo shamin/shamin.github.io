@@ -23,7 +23,7 @@ export const experiences: Experience[] = [
       {
         title: "Fullcontact Dashboard",
         description:
-          "Worked on the revamp of fullcontact dashboard. This included a new design, features like usage stats, match test, new billing page, etc. Being the first member of the revamp team I mentored 6 of my teammates in India. Stacks used were Clojurescript, Clojure and React.",
+          "Worked on the revamp of the app. This included a new design, features like usage stats, match test, a new billing page, etc. Being the first member of the revamp team I mentored 6 of my teammates in India. Stacks used were Clojurescript, Clojure, and React.",
       },
       {
         title: "Wheatley",
@@ -33,17 +33,17 @@ export const experiences: Experience[] = [
       {
         title: "Plans & Payment services",
         description:
-          "This includes the microservices used by dashboard and wheatley. There are 8 microservices each specialise one task like handling usage info, event-driven for async tasks, handling payments, handling plans, handling accounts, handling third-party systems, etc. All these services are written from scratch. They are highly scalable and stable with the help of Kafka and Druid. The stacks used are Clojure, Kafka, Kafka streams, Memcached, Mongo, Druid and Mysql.",
+          "This includes the microservices used by dashboard and wheatley. There are 8 microservices each specialize one task like handling usage info, event-driven for async tasks, handling payments, handling plans, handling accounts, handling third-party systems, etc. All these services are written from scratch. They are highly scalable and stable with the help of Kafka and Druid. The stacks used are Clojure, Kafka, Kafka streams, Memcached, Mongo, Druid, and Mysql.",
       },
       {
         title: "Suitescripts",
         description:
-          "These are Javascript files that run inside Netsuite. Due to the less bandwidth, I had to do this alone. Figured out entirely myself and came up with a typescript project which can be easily deployed to Netsuite with cli.",
+          "These are Javascript files that run inside Netsuite. Due to the less bandwidth, I had to do this alone. Figured out entirely myself and came up with a typescript project which can be easily deployed to Netsuite with CLI.",
       },
       {
         title: "Aquifer",
         description:
-          "Worked on the frontend of internal app used by data team to visualize and deduplicate data. Have worked on some advanced react concepts like higher-order components. This was a Javascript project.",
+          "Worked on the frontend of the internal app used by the data team to visualize and deduplicate data. Have worked on some advanced react concepts like higher-order components. This was a Javascript project.",
       },
     ],
   },
@@ -107,7 +107,7 @@ export const skills: Skill[] = [
       "AWS",
       "Git",
       "Microservices",
-      "REST Api",
+      "REST API",
       "SQS",
       "Redis",
       "s3",
@@ -135,7 +135,7 @@ export const openSource: OpenSource = {
       type: "Gatsby Theme",
       link: "https://github.com/shamin/greenboard",
       description:
-        "Greenboard is a gatsby theme for creating api documentation from a markdown file, similar to slate. Slate was basic and was harder to customize. So I developed a theme that takes markdown file parse it to html ast and is then rendered as html files. The project got an amazing response and got the product of the day in producthunt. It has 224 stars on Github.",
+        "Greenboard is a gatsby theme for creating API documentation from a markdown file, similar to slate. Slate was basic and was harder to customize. So I developed a theme that takes markdown file parse it to Html AST and is then rendered as Html files. The project got an amazing response and got the product of the day in producthunt. It has 224 stars on Github.",
       stacks: ["React", "sass", "Gatsby"],
     },
   ],
@@ -144,7 +144,7 @@ export const openSource: OpenSource = {
       name: "Kibana",
       link: "https://github.com/elastic/kibana",
       description:
-        "Merged 3 PRs to kibana. Two of them where bug fixes and another on was conversion of a package to typescript.",
+        "Merged 3 PRs to kibana. Two of them were bug fixes and another one was conversion of a package to typescript.",
       stacks: ["Typescript", "React", "Redux"],
     },
   ],
@@ -155,7 +155,7 @@ export const sideProjects: Project[] = [
     name: "Postbot",
     type: "Shopify Application",
     description:
-      "Built a shopify application that shows liveorder pop-ups on shopify stores.",
+      "Built a Shopify application that shows live order pop-ups on Shopify stores.",
     stacks: [
       "React",
       "React hooks",

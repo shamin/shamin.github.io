@@ -36,7 +36,7 @@ export default function ResumeOpenSourceItem({
       </a>
       <p className="opensource__description">{description}</p>
       <p className="opensource__stacks">
-        <strong>Stacks Used : </strong>
+        <strong>Stacks Used: </strong>
         {stacks.join(", ")}
       </p>
     </li>

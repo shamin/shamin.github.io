@@ -39,7 +39,7 @@ export default function ResumeProjectItem({
       </h3>
       <p className="project__description">{description}</p>
       <p className="project__stacks">
-        <strong>Stacks Used : </strong>
+        <strong>Stacks Used: </strong>
         {stacks.join(", ")}
       </p>
     </li>
