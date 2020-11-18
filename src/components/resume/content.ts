@@ -141,7 +141,7 @@ export const sideProjects = [
     name: "Postbot",
     type: "Shopify Application",
     description:
-      "Built a shopify application that shows liveorder pop-ups on shopify stores.",
+      "Built a shopify application that shows liveorder pop-ups on shopify stores. Shopify polaris, App Bridge and GraphQl api was used.",
     stacks: ["React", "React hooks", "Emotion", "Node JS", "AWS", "Mongo DB", "GraphQl"],
     link: "https://postbot.tech",
   },
@@ -150,6 +150,6 @@ export const sideProjects = [
     description:
       "Created a webpack boilerplate that can be used to start a small website. This boilerplate also adds sass, es6 functionality to your environment.",
     stacks: ["Webpack", "sass"],
-    link: "https://github.com/shamin",
+    link: "https://github.com/shamin/webpack-sass-bootstrap-boilerplate",
   },
 ]

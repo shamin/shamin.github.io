@@ -14,6 +14,10 @@ const resumeProjectStyles = css`
   .project__stacks {
     margin: 0px;
   }
+  .project__type {
+    font-size: 0.8em;
+    font-weight: 400;
+  }
   @media print {
     margin-top: 5px;
   }
@@ -25,12 +29,11 @@ export default function ResumeProjectItem({
   return (
     <li css={resumeProjectStyles}>
       <h3 className="project__heading">
-        {name}
-        {type && <span>, {type}</span>}
+        <a rel="noreferrer" target="_blank" href={link}>
+          {name}
+          {type && <span className="project__type">, {type}</span>}
+        </a>
       </h3>
-      <a rel="noreferrer" target="_blank" href={link}>
-        {link}
-      </a>
       <p className="project__description">{description}</p>
       <p className="project__stacks">
         <strong>Stacks Used : </strong>

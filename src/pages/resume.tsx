@@ -47,7 +47,16 @@ const resumeStyles = css`
   }
   .print__footer {
     display: none;
+    position: fixed;
+    bottom: 10px;
   }
+
+  @media only screen and (max-width: 800px) {
+    .two-col {
+      flex-direction: column;
+    }
+  }
+
   @media print {
     font-size: 12px;
     padding: 20px 40px 0px 40px;
@@ -70,7 +79,11 @@ const resumeStyles = css`
 export default function Resume() {
   return (
     <Layout title="Resume">
-      <GithubCorner link={"https://github.com/shamin/shamin.github.io/blob/master/src/pages/resume.tsx"} />
+      <GithubCorner
+        link={
+          "https://github.com/shamin/shamin.github.io/blob/master/src/pages/resume.tsx"
+        }
+      />
       <div css={resumeStyles}>
         <ResumeHeader />
         <div className="two-col">

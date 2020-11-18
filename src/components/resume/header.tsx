@@ -7,6 +7,9 @@ import { VscGithub } from "react-icons/vsc"
 import { CgWebsite } from "react-icons/cg"
 
 const resumeHeaderItemStyles = css`
+  @media only screen and (max-width: 800px) {
+    margin-top: 5px;
+  }
   a {
     color: inherit;
   }
@@ -14,7 +17,12 @@ const resumeHeaderItemStyles = css`
 
 const ResumeHeaderItem = ({ item }) => (
   <li css={resumeHeaderItemStyles}>
-    <a rel="noreferrer" target="_blank" href={item.link} className="vertical-center">
+    <a
+      rel="noreferrer"
+      target="_blank"
+      href={item.link}
+      className="vertical-center"
+    >
       <item.icon className="icon-with-text" size={18} />
       <span>{item.text}</span>
     </a>
@@ -26,6 +34,11 @@ const resumeHeaderStyles = css`
     display: flex;
     list-style: none;
     justify-content: space-between;
+  }
+  @media only screen and (max-width: 800px) {
+    .resume-header__list {
+      flex-direction: column;
+    }
   }
   @media print {
     .resume-header__name {

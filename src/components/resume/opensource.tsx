@@ -13,6 +13,10 @@ const resumeOpenSourceStyles = css`
   .opensource__stacks {
     margin: 0px;
   }
+  .opensource__type {
+    font-size: 0.8em;
+    font-weight: 400;
+  }
 `
 
 export default function ResumeOpenSourceItem({
@@ -22,9 +26,11 @@ export default function ResumeOpenSourceItem({
     <li css={resumeOpenSourceStyles}>
       <h3 className="opensource__heading">
         {name}
-        {type && <span>, {type}</span>}
+        {type && <span className="opensource__type">, {type}</span>}
       </h3>
-      <a rel="noreferrer" target="_blank" href={link}>{link}</a>
+      <a rel="noreferrer" target="_blank" href={link}>
+        {link}
+      </a>
       <p className="opensource__description">{description}</p>
       <p className="opensource__stacks">
         <strong>Stacks Used : </strong>
