@@ -107,7 +107,7 @@ export const educations = [
   {
     course: "Bachelor of Technology",
     major: "Mechanical Engineering",
-    college: "Federal Institute of Science and Technology",
+    college: "FISAT, Angamaly",
     collegeLink: "http://fisat.ac.in",
     timeline: "2013 - 2017",
     location: "Angamaly, Kerala",
@@ -141,7 +141,7 @@ export const sideProjects = [
     name: "Postbot",
     type: "Shopify Application",
     description:
-      "Built a shopify application that shows liveorder pop-ups on shopify stores. Shopify polaris, App Bridge and GraphQl api was used.",
+      "Built a shopify application that shows liveorder pop-ups on shopify stores.",
     stacks: ["React", "React hooks", "Emotion", "Node JS", "AWS", "Mongo DB", "GraphQl"],
     link: "https://postbot.tech",
   },

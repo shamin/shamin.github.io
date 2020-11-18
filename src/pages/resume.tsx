@@ -141,9 +141,14 @@ export default function Resume() {
                 ))}
               </ul>
             </ResumeSection>
-            {/* <ResumeSection title="Achievements & Awards">
-              <ul>Top 10 opensource contributer in Issuehunt Fest 2018</ul>
-            </ResumeSection> */}
+            <ResumeSection title="Achievements & Awards">
+              <ul>
+                <li>
+                  Won second prize in Hack & Slash hackathon conducted by{" "}
+                  <a href="https://dgraph.io/">Dgraph.</a>
+                </li>
+              </ul>
+            </ResumeSection>
           </div>
         </div>
         <footer className="print__footer">
