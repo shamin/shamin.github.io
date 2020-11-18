@@ -47,7 +47,7 @@ const githubCornerStyles = css`
 
 export default function GithubCorner({ link }) {
   return (
-    <a target="_blank" href={link} css={githubCornerStyles}>
+    <a aria-label="View on github" rel="noreferrer" target="_blank" href={link} css={githubCornerStyles}>
       <svg
         width="80"
         height="80"

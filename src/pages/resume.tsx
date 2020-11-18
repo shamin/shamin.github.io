@@ -70,7 +70,7 @@ const resumeStyles = css`
 export default function Resume() {
   return (
     <Layout title="Resume">
-      <GithubCorner link={"https://github.com/shamin"} />
+      <GithubCorner link={"https://github.com/shamin/shamin.github.io/blob/master/src/pages/resume.tsx"} />
       <div css={resumeStyles}>
         <ResumeHeader />
         <div className="two-col">
@@ -136,7 +136,7 @@ export default function Resume() {
         <footer className="print__footer">
           <p>
             You can view the html version of this resume at{" "}
-            <a href="https://shamin.github.io/resume">
+            <a rel="noreferrer" href="https://shamin.github.io/resume">
               shamin.github.io/resume
             </a>
           </p>

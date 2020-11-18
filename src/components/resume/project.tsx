@@ -28,7 +28,7 @@ export default function ResumeProjectItem({
         {name}
         {type && <span>, {type}</span>}
       </h3>
-      <a target="_blank" href={link}>
+      <a rel="noreferrer" target="_blank" href={link}>
         {link}
       </a>
       <p className="project__description">{description}</p>

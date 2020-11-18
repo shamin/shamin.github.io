@@ -31,7 +31,7 @@ export default function ResumeEducationItem({
           {course} - {major}
         </strong>
       </p>
-      <a target="_blank" className="education__college" href={collegeLink}>
+      <a rel="noreferrer" target="_blank" className="education__college" href={collegeLink}>
         {college}
       </a>
       <div className="education__data">

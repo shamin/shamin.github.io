@@ -55,7 +55,7 @@ export default function ResumeExperienceItem({
     <li css={resumeExperienceStyles}>
       <h3 className="experience__role">{role}</h3>
       <h4 className="experience__company">
-        <a target="_blank" href={companyLink}>
+        <a rel="noreferrer" target="_blank" href={companyLink}>
           {company}
         </a>
       </h4>

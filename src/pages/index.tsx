@@ -31,7 +31,7 @@ export default function Home() {
         </h1>
         <div className="home__nav">
           <Link to="/blog">Blog</Link>
-          <a target="_blank" href="https://github.com/shamin">
+          <a rel="noreferrer" target="_blank" rel="noreferrer" href="https://github.com/shamin">
             Github
           </a>
         </div>

@@ -24,7 +24,7 @@ export default function ResumeOpenSourceItem({
         {name}
         {type && <span>, {type}</span>}
       </h3>
-      <a target="_blank" href={link}>{link}</a>
+      <a rel="noreferrer" target="_blank" href={link}>{link}</a>
       <p className="opensource__description">{description}</p>
       <p className="opensource__stacks">
         <strong>Stacks Used : </strong>

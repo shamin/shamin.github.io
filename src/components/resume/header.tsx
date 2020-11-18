@@ -14,7 +14,7 @@ const resumeHeaderItemStyles = css`
 
 const ResumeHeaderItem = ({ item }) => (
   <li css={resumeHeaderItemStyles}>
-    <a target="_blank" href={item.link} className="vertical-center">
+    <a rel="noreferrer" target="_blank" href={item.link} className="vertical-center">
       <item.icon className="icon-with-text" size={18} />
       <span>{item.text}</span>
     </a>
