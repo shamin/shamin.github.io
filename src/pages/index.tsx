@@ -17,16 +17,23 @@ const homeStyles = css`
       color: #000;
     }
   }
+  .hand__emoji {
+    cursor: grab;
+  }
 `
 
 export default function Home() {
   return (
     <Layout title="Home">
       <div css={homeStyles}>
-        <h1>Hi 👋, I'm Shamin</h1>
+        <h1>
+          Hi <span className="hand__emoji">👋</span>, I'm Shamin
+        </h1>
         <div className="home__nav">
           <Link to="/blog">Blog</Link>
-          <a href="https://github.com/shamin">Github</a>
+          <a target="_blank" href="https://github.com/shamin">
+            Github
+          </a>
         </div>
       </div>
     </Layout>
