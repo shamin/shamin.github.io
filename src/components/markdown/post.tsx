@@ -29,10 +29,13 @@ const postStyles = css`
     font-size: 14px;
   }
   .syntax-highlight {
-    padding: 20px;
+    padding: 30px;
+    border-radius: 10px;
     font-family: SF Mono, sans-serif;
     font-size: 16px;
     line-height: 1.6em;
+    letter-spacing: 0.5px;
+    font-weight: 100;
   }
   code {
     font-family: inherit;

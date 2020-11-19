@@ -1,0 +1,111 @@
+---
+path: "/blog/posts/11-2020/how-thirdparty-integrations-inject-components-p1"
+title: "How third-party integrations inject their components to a webpage? - Part 1"
+date: "10 November 2020"
+description: "Series on how thirdparty integrations use a script snippet to inject their components to a webpage."
+---
+Ever wondered how chatbots and other pop up apps inject their components into your website. Usually what they do is they will ask you to add a script snippet to your website and the component pops up. In this post, I want to explain how I did manage to create a script that does this.
+
+Let's start with a script snippet that you can ask a user to put on their website. You don't want to ask them to add 100 lines of javascript code to their website. Instead what you can do is create a script that injects a javascript file served from your CDN, that can have 100 or more lines. This is what most of the small scripts that you add to your website do, they load more scripts. So let's start with a small javascript code that adds a new script to your DOM.
+
+```js
+var scriptElement = document.createElement('script');
+var firstScriptElement = document.getElementsByTagName('script')[0];
+scriptElement.src = "<https://yourcdn.com/script.js>";
+scriptElement.async.= 1;
+firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
+```
+
+It is not a good idea to add this to your snippet instead what you can do is to create an [IIFE](https://developer.mozilla.org/en-US/docs/Glossary/IIFE). These are functions that are executed immediately. And the good thing about this is the variables you declare in this function are only going to have function scope. So it won't cause any other issues if any other script uses the same variable names. Let's encapsulate this in an IIFE.
+
+```js
+( function() {
+	var scriptElement = document.createElement('script');
+	var firstScriptElement = document.getElementsByTagName('script')[0];
+	scriptElement.src = "<https://yourcdn.com/script.js>";
+	scriptElement.async.= 1;
+	firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
+} )()
+```
+
+Let's make use of this newly created function to accept some useful parameters like tag name, script url, etc.
+
+```js
+( function(document, tagName, scriptAddress) {
+	var scriptElement = document.createElement(tagName)
+	var firstScriptElement = document.getElementsByTagName(tagName)[0];
+	scriptElement.src = scriptAddress;
+	scriptElement.async.= 1;
+	firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
+} )(document, 'script', '<https://yourcdn.com/script.js>')
+```
+
+Since we have a script let's make the most out of it. Usually what most people do is add a global object which can hold some functionalities for our later use. Also, we will need something to figure out which webpage is calling this.
+
+```js
+( function(window, document, tagName, globalName, scriptAddress) {
+	window['MyAppObject'] = globalName;
+	var scriptElement = document.createElement(tagName)
+	var firstScriptElement = document.getElementsByTagName(tagName)[0];
+	scriptElement.src = scriptAddress;
+	scriptElement.async.= 1;
+	firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
+} )(window, document, 'script', 'myapp', '<https://yourcdn.com/script.js>')
+```
+
+Let's consider we want to call an initialize function that starts rendering a chatbot. Now that we have a global object that can be called from anywhere we can use it to initialize our app like,
+
+```js
+myapp('init', 'some_unique_id');
+```
+
+To do this we are going to create a queue that holds all these functions and arguments until our main script is loaded. Also, add an id to our script so that it is easy for us to later find it.
+
+```js
+( function(window, document, tagName, globalName, scriptAddress) {
+	window['MyAppObject'] = globalName;
+	window[globalName] = window[globalName] || function () {
+		(window[globalName].queue = window[globalName].queue || []).push(arguments);	
+	}
+	var scriptElement = document.createElement(tagName)
+	var firstScriptElement = document.getElementsByTagName(tagName)[0];
+	scriptElement.id = globalName;
+	scriptElement.src = scriptAddress;
+	scriptElement.async.= 1;
+	firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
+} )(window, document, 'script', 'myapp', '<https://yourcdn.com/script.js>')
+
+myapp('init', 'some_unique_id');
+```
+
+Hooray, now we have a queue at `myapp.queue` that can be later used in our function to do some initialization.
+
+Unfortunately, our script snippet got bigger and we don't want our users to copy this big script. Also, we don't want our users to understand what we are doing, I am kidding. So let's reduce the script size and mess it a little up. Why do we even need such long variable names? (Spoiler Alert)
+
+```js
+((function (w, d, s, o, f) {
+  w['MyAppObject'] = o;
+  w[o] = w[o] || function () { (w[o].q = w[o].q || []).push(arguments) };
+	var js = d.createElement(s);
+  var fjs = d.getElementsByTagName(s)[0];
+  js.id = o;
+  js.src = f;
+  js.async = 1;
+  fjs.parentNode.insertBefore(js, fjs);
+}(window, document, 'script', 'myapp', '<https://yourcdn.com/script.js>'))
+
+myapp('init', 'some_unique_id');
+```
+
+Let's make it smaller by removing those var declarations by getting them as functional parameters. Also reducing the lines.
+
+```js
+((function (w, d, s, o, f, js, fjs) {
+  w['MyAppObject'] = o; w[o] = w[o] || function () { (w[o].q = w[o].q || []).push(arguments) };
+	js = d.createElement(s), fjs = d.getElementsByTagName(s)[0];
+  js.id = o; js.src = f; js.async = 1; fjs.parentNode.insertBefore(js, fjs);
+}(window, document, 'script', 'myapp', '<https://yourcdn.com/script.js>'))
+myapp('init', 'some_unique_id');
+```
+
+That's it for now. Now we have a script snippet that injects our main script to a webpage and also initializes it. In my next post, I will be explaining how you can use the `myapp.queue` and inject an iframe into your user's website.
