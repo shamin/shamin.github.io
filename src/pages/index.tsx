@@ -12,7 +12,7 @@ const homeStyles = css`
   .home__nav {
     display: grid;
     column-gap: 20px;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     a {
       color: #000;
     }
@@ -31,7 +31,8 @@ export default function Home() {
         </h1>
         <div className="home__nav">
           <Link to="/blog">Blog</Link>
-          <a rel="noreferrer" target="_blank" rel="noreferrer" href="https://github.com/shamin">
+          <Link to="/projects">Projects</Link>
+          <a rel="noreferrer" target="_blank" href="https://github.com/shamin">
             Github
           </a>
         </div>
