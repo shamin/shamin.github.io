@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import { css, jsx } from "@emotion/core"
-import { FunctionComponent } from "react"
+import { FunctionComponent, useState } from "react"
 import Highlight, { defaultProps } from "prism-react-renderer"
 import github from "prism-react-renderer/themes/oceanicNext"
 import copy from "copy-to-clipboard"
@@ -29,9 +29,16 @@ const copyButtonStyles = css`
 const CopyButton: FunctionComponent<CopyButtonProps> = ({
   data,
 }: CopyButtonProps) => {
+  const [copied, setCopied] = useState(false)
   return (
-    <button css={copyButtonStyles} onClick={() => copy(data)}>
-      Copy
+    <button
+      css={copyButtonStyles}
+      onClick={() => {
+        copy(data)
+        setCopied(true)
+      }}
+    >
+      {copied ? "Copied" : "Copy"}
     </button>
   )
 }
