@@ -36,6 +36,7 @@ const postStyles = css`
     line-height: 1.6em;
     letter-spacing: 0.5px;
     font-weight: 100;
+    overflow-y: scroll;
   }
   code {
     font-family: inherit;

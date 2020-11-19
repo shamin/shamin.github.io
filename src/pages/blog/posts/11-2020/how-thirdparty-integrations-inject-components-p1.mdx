@@ -12,7 +12,7 @@ Let's start with a script snippet that you can ask a user to put on their websit
 var scriptElement = document.createElement('script');
 var firstScriptElement = document.getElementsByTagName('script')[0];
 scriptElement.src = "<https://yourcdn.com/script.js>";
-scriptElement.async.= 1;
+scriptElement.async = 1;
 firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
 ```
 
@@ -23,7 +23,7 @@ It is not a good idea to add this to your snippet instead what you can do is to 
 	var scriptElement = document.createElement('script');
 	var firstScriptElement = document.getElementsByTagName('script')[0];
 	scriptElement.src = "<https://yourcdn.com/script.js>";
-	scriptElement.async.= 1;
+	scriptElement.async = 1;
 	firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
 } )()
 ```
@@ -35,7 +35,7 @@ Let's make use of this newly created function to accept some useful parameters l
 	var scriptElement = document.createElement(tagName)
 	var firstScriptElement = document.getElementsByTagName(tagName)[0];
 	scriptElement.src = scriptAddress;
-	scriptElement.async.= 1;
+	scriptElement.async = 1;
 	firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
 } )(document, 'script', '<https://yourcdn.com/script.js>')
 ```
@@ -48,7 +48,7 @@ Since we have a script let's make the most out of it. Usually what most people d
 	var scriptElement = document.createElement(tagName)
 	var firstScriptElement = document.getElementsByTagName(tagName)[0];
 	scriptElement.src = scriptAddress;
-	scriptElement.async.= 1;
+	scriptElement.async = 1;
 	firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
 } )(window, document, 'script', 'myapp', '<https://yourcdn.com/script.js>')
 ```
@@ -71,7 +71,7 @@ To do this we are going to create a queue that holds all these functions and arg
 	var firstScriptElement = document.getElementsByTagName(tagName)[0];
 	scriptElement.id = globalName;
 	scriptElement.src = scriptAddress;
-	scriptElement.async.= 1;
+	scriptElement.async = 1;
 	firstScriptElement.parentNode.insertBefore(scriptElement, firstScriptElement);
 } )(window, document, 'script', 'myapp', '<https://yourcdn.com/script.js>')
 
