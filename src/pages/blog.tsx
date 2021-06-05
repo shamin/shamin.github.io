@@ -35,7 +35,7 @@ export default function Blog() {
   `)
 
   const posts = data.allMdx.edges
-  
+
   return (
     <Layout title="Blog">
       <div css={blogStyles}>
@@ -44,7 +44,7 @@ export default function Blog() {
           {posts
             .sort(
               () => {
-                return 1
+                return -1
               }
             )
             .map(({ node }) => (
