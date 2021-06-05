@@ -1,0 +1,70 @@
+---
+path: "/blog/posts/05-2021/deploying-clojure-libraries-to-gitlab-maven-repository"
+title: "Deploying Clojure libraries to gitlab maven repository"
+date: "05 June 2021"
+description: "How to deploy your own private clojure package to gitlab package registry. "
+---
+
+Gitlab provides an amazing package manager which supports most types of the package registries like npm, pypi, maven, etc. You can use this to manage your clojure private packages. Gitlab have an amazing documentation but it doesn't provide any docs on how to deploy clojure packages. We are going to look how to deploy a simple clojure package to gitlab private repository. We will be using leiningen for creating, managing and deploying clojure projects.
+
+
+## Creating a new clojure library
+
+leiningen provides an easy way to create a clojure library project. 
+
+```bash
+lein new <library-name>
+```
+
+This create a simple clojure library with a `project.clj` configuration file and `core.clj` file. Update the description, url etc. for the package in your `project.clj` file.
+
+## Setting up gitlab deploy configuration
+
+To deploy the package for your terminal you will need a gitlab personal or deploy token. You can generate a personal token using this [documentation](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html). If you are going with a deploy token make sure it have `read_package_registry` and `write_package_registry` scopes attached to it. To generate deploy token follow this [documentation](https://docs.gitlab.com/ee/user/project/deploy_tokens/index.html). Another thing you will need is the project id. You can get it from the repository home page below the repo name.
+
+Once you have a gitlab personal or deploy token you have to set this to your `project.clj` file. leiningen provides a way to set package deploy configuration for each of the release type. You can add `:repositories` key in project.clj with the config values. So your project.clj will look like this. 
+
+```clojure
+(defproject my-package "0.1.0-SNAPSHOT"
+  :description "<description>"
+  :url "<repo_url>"
+  :license {:name "EPL-2.0"
+            :url "https://www.eclipse.org/legal/epl-2.0/"}
+  :dependencies [[org.clojure/clojure "1.10.0"]]
+  :repl-options {:init-ns my-package.core}
+  :repositories [["releases"  {:url           "https://gitlab.com/api/v4/projects/<project-id>/packages/maven"
+                               :username      "Private-Token"
+                               :password      "<personal | deploy token>"}
+									"snapshots" {:url           "https://gitlab.com/api/v4/projects/<project-id>/packages/maven"
+                               :username      "Private-Token"
+                               :password      "<personal | deploy token>"}]])
+```
+
+You will need to add two configurations to the `:repositories` field. The `snapshots` config will be used for snapshot release and the `releases` config will be used for the major releases.
+
+## Deploying the package
+
+It is time to deploy your package to gitlab. Run the lein deploy command. 
+
+```bash
+lein deploy
+```
+
+This will deploy the packages to gitlab package registry. You can see it by going to the repo page and selecting `Package Registry` from the `Packages & Registries` tab in the sidebar.
+
+## Securing the deploy tokens
+
+In the last step we have hardcoded the personal or deploy token in the `project.clj` but for an actual project it is not secure to hardcode some credentials in a file we add to git. To secure it we can set an environment variable with the token and load that in our project.clj.
+
+To pull the token from an environment variable to the project.clj we can use `(System/getenv)` function. By replacing the token with this function, the project.clj will look like
+
+```clojure
+:repositories [["releases"  {:url           "https://gitlab.com/api/v4/projects/<project-id>/packages/maven"
+                             :username      "Private-Token"
+                             :password      ~(System/getenv "GITLAB_DEPLOY_TOKEN")}
+							  "snapshots" {:url           "https://gitlab.com/api/v4/projects/<project-id>/packages/maven"
+                             :username      "Private-Token"
+                             :password      ~(System/getenv "GITLAB_DEPLOY_TOKEN")}]]
+```
+
+Now we have a clojure package deployed to gitlab package registry. Happy Coding! 

@@ -35,15 +35,21 @@ export default function Blog() {
   `)
 
   const posts = data.allMdx.edges
-
+  
   return (
     <Layout title="Blog">
       <div css={blogStyles}>
         <Header />
         <div css={blogListStyles}>
-          {posts.map(({ node }) => (
-            <BlogListItem key={node.id} post={node.frontmatter} />
-          ))}
+          {posts
+            .sort(
+              () => {
+                return 1
+              }
+            )
+            .map(({ node }) => (
+              <BlogListItem key={node.id} post={node.frontmatter} />
+            ))}
         </div>
       </div>
     </Layout>
