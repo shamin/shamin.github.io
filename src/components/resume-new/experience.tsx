@@ -50,7 +50,7 @@ const resumeExperienceStyles = css`
 `
 
 export default function ResumeExperienceItem({
-  experience: { role, company, companyLink, date, location, projects },
+  experience: { role, company, companyLink, date, location, responsibilities },
 }: {
   experience: Experience
 }) {
@@ -58,12 +58,9 @@ export default function ResumeExperienceItem({
     <li css={resumeExperienceStyles}>
       <h3 className="experience__role"><strong>{role},</strong> {company}, {date}</h3>
       <ul className="experience__list">
-        {projects.map(project => (
-          <li key={project.description} className="experience__list__item">
-            {project.title && (
-              <strong className="skills__type">{project.title}: </strong>
-            )}
-            {project.description}
+        {responsibilities.map(responsibility => (
+          <li key={responsibility} className="experience__list__item">
+            {responsibility}
           </li>
         ))}
       </ul>

@@ -14,28 +14,38 @@ import { CgWebsite } from "react-icons/cg"
 
 export const experiences: Experience[] = [
   {
-    role: "Senior Full Stack Engineer & Technical Lead",
-    company: "Fullcontact",
-    date: "May 2021 - Present",
-    location: "Kochi, India",
-    companyLink: "https://fullcontact.com",
-    responsibilities: [
-      "Technical Lead for the Customer Experience team in India. Mentoring the colleagues, helping the new members to onboard faster, Managing internal documentation etc.", 
-      "Working on customer facing dashboards and a markdown driven public documentation.",
-      "Working on refactoring of a react component library that uses Fullcontact design system. We are also adding new visualisations built with d3.",
-      "Working on a javascript tag that customers can put on their website to track visitors. Similar to the google analytics tag."
-    ]
-  },
-  {
     role: "Full Stack Engineer",
     company: "Fullcontact",
-    date: "June 2018 - April 2021",
+    date: "June 2018 - Present",
     location: "Kochi, India",
     companyLink: "https://fullcontact.com",
-    responsibilities: [
-      "Part of a team who built micro services that handle customer accounts, payments, contracts etc. These were written in Clojure backed with technologies like Kafka, Aurora, Druid, Mongo etc. We also build an even driven system with the help of Kafka streams. Frontends were also build to visualise and handle these details.", 
-      "Built the complete frontend of an internal application that is used for data cleanup. This application help the team to cleanup almost 1 million datasets per day. Also worked a little on the backend of these systems.",
-    ]
+    projects: [
+      {
+        title: "Fullcontact Dashboard",
+        description:
+          "Worked on the revamp of the app. This included a new design, features like usage stats, match test, a new billing page, etc. Being the first member of the revamp team I mentored 6 of my teammates in India. Stacks used were Clojurescript, Clojure, and React.",
+      },
+      {
+        title: "Wheatley",
+        description:
+          "Worked on an internal dashboard to view and update customer information such as plans, payments, etc. Work was mainly on UI, the backend was a middleware which talks to other microservices.",
+      },
+      {
+        title: "Plans & Payment services",
+        description:
+          "This includes the microservices used by dashboard and wheatley. There are 8 microservices each specialize one task like handling usage info, event-driven for async tasks, handling payments, handling plans, handling accounts, handling third-party systems, etc. All these services are written from scratch. They are highly scalable and stable with the help of Kafka and Druid. The stacks used are Clojure, Kafka, Kafka streams, Memcached, Mongo, Druid, and Mysql.",
+      },
+      {
+        title: "Suitescripts",
+        description:
+          "These are Javascript files that run inside Netsuite. Due to the less bandwidth, I had to do this alone. Figured out entirely myself and came up with a typescript project which can be easily deployed to Netsuite with CLI.",
+      },
+      {
+        title: "Aquifer",
+        description:
+          "Worked on the frontend of the internal app used by the data team to visualize and deduplicate data. Have worked on some advanced react concepts like higher-order components. This was a Javascript project.",
+      },
+    ],
   },
   {
     role: "Full Stack Developer",
@@ -43,12 +53,23 @@ export const experiences: Experience[] = [
     date: "August 2017 - May 2018",
     location: "Kochi, India",
     companyLink: "https://zealmotion.com",
-    responsibilities: [
-      "Worked on a carpooling mobile application written in React native and Express backend. It was a 2 member team and was able to complete the project in 2 months.", 
-      "Worked on an admin portal in React.js which handled large datasets.",
-      "Designed and developed several responsive websites backed by CMS."
-    ]
-  }
+    projects: [
+      {
+        title: "Convoy",
+        description:
+          "Carpooling mobile application written in React Native and backend in Node js. It was a 2 member team and had to complete the project in 2 months. Also developed an admin portal in React.",
+      },
+      {
+        title: "Kudumbashree Admin Portal",
+        description:
+          "Kudumbashree is one of the largest SHG in Asia and they needed an admin portal to manage procurements. I have worked on the UI in Vue js.",
+      },
+      {
+        description:
+          "Designed and developed several responsive websites powered with CMS backend.",
+      },
+    ],
+  },
 ]
 
 export const skills: Skill[] = [
@@ -103,7 +124,7 @@ export const educations: Education[] = [
     college: "FISAT, Angamaly",
     collegeLink: "http://fisat.ac.in",
     timeline: "2013 - 2017",
-    location: "Kerala",
+    location: "Angamaly, Kerala",
   },
 ]
 
@@ -114,23 +135,7 @@ export const openSource: OpenSource = {
       type: "Gatsby Theme",
       link: "https://github.com/shamin/greenboard",
       description:
-        "Gatsby theme for generating api documentation from markdown files. The project was product of the day on Product hunt. It has 224 stars on Github.",
-      stacks: ["React", "sass", "Gatsby"],
-    },
-    {
-      name: "React Flow",
-      type: "React Package",
-      link: "https://github.com/shamin/react-flow",
-      description:
-        "React package to create drag and drop flow charts.",
-      stacks: ["React", "Context API", "Hooks"],
-    },
-    {
-      name: "Figma React Icons",
-      type: "CLI",
-      link: "https://github.com/shamin/figma-react-icons",
-      description:
-        "CLI to generate react icon component files from Figma.",
+        "Greenboard is a gatsby theme for creating API documentation from a markdown file, similar to slate. Slate was basic and was harder to customize. So I developed a theme that takes markdown file parse it to Html AST and is then rendered as Html files. The project got an amazing response and got the product of the day in producthunt. It has 224 stars on Github.",
       stacks: ["React", "sass", "Gatsby"],
     },
   ],
@@ -140,7 +145,7 @@ export const openSource: OpenSource = {
       link: "https://github.com/elastic/kibana",
       description:
         "Merged 3 PRs to kibana. Two of them were bug fixes and another one was conversion of a package to typescript.",
-      stacks: ["svgo", "meow"],
+      stacks: ["Typescript", "React", "Redux"],
     },
   ],
 }
@@ -161,6 +166,13 @@ export const sideProjects: Project[] = [
       "GraphQl",
     ],
     link: "https://postbot.tech",
+  },
+  {
+    name: "Webpack Boilerplate",
+    description:
+      "Created a webpack boilerplate that can be used to start a small website. This boilerplate also adds sass, es6 functionality to your environment.",
+    stacks: ["Webpack", "sass"],
+    link: "https://github.com/shamin/webpack-sass-bootstrap-boilerplate",
   },
 ]
 
